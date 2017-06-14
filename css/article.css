@@ -37,8 +37,8 @@ footer {
 .content {
 	min-height: calc(100% - 136px);
 	max-width: 940px;
-	margin: 60px auto 0;
-	padding: 20px 10px 20px;
+	margin: 0 auto;
+	padding: 80px 10px 20px;
 	overflow: hidden;
 }
 

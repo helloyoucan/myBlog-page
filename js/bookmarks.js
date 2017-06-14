@@ -4,7 +4,7 @@ var domTree = document.getElementById('tree'),
 //点击树节点
 m$.addEvent(domTree, 'click', function(event) {
 	var e = event || window.event;
-	if(e.target.id != 'close-tree') {
+	if(e.target.className.indexOf('tree-node') > -1) {
 		var liDom = e.target.parentNode;
 		var activeDoms = m$.getByClass('active', domTree);
 		if(liDom.className.indexOf('active') >= 0) {
@@ -18,8 +18,8 @@ m$.addEvent(domTree, 'click', function(event) {
 			liDom = liDom.parentNode.parentNode;
 			m$.addClass(liDom, 'active');
 		}
-		console.log(e.target.innerText)
-	} else {
+		console.log(e.target.innerText+'***');
+	} else if(e.target.id == 'close-tree') {
 		domTree.style.display = "none";
 		domCloseTree.style.display = "none";
 	}
