@@ -64,6 +64,7 @@ footer div {
 }
 
 #back-to-top {
+	display: none;
 	cursor: pointer;
 	position: fixed;
 	bottom: 36px;

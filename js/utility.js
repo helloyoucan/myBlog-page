@@ -39,7 +39,7 @@ var m$ = {
 		}
 
 	},
-	removeClasss: function(dom, className) {
+	removeClass: function(dom, className) {
 		if(dom && dom.length) {
 			for(var i = dom.length - 1; i >= 0; i--) {
 				(function(i) {
@@ -53,8 +53,8 @@ var m$ = {
 		} else {
 			var oldClass = dom.className || '';
 			var index = oldClass.indexOf(className);
-			if(index > 0) {
-				dom.className = oldClass.substring(index, className.length).replace("  ", "").replace(/(^\s*)|(\s*$)/g, '');
+			if(index > -1) {
+				dom.className = oldClass.replace(className, '').replace("  ", "").replace(/(^\s*)|(\s*$)/g, '');
 			}
 		}
 	},
@@ -131,6 +131,48 @@ var m$ = {
 
 		}
 
+	},
+	/**
+	 * type:String,"get"/"post",default:"get"
+	 * url:String,
+	 * dataType:string,"json"/"string",default:json
+	 * data:JSON/"String"
+	 * asyn:boolen,true/false,default:true
+	 * contentType:"text/html; chartset=iso-8859-1"
+	 * success:Function
+	 * error:Function
+	 * */
+	ajax: function(opts) {
+		var _opts = {
+			type: "get",
+			dataType: "josn",
+			asyn: true
+		}
+		for(o in opts) {
+			_opts[o] = opts[o];
+		}
+		_opts.type = _opts.type.toLowerCase();
+		_opts.dataType = _opts.dataType.toLowerCase();
+		if(_opts.dataType = 'json') {
+			_opts.data = JOSN.stringify(_opts.data)
+		}
+		console.log(_opts)
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4) {
+				if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+					_opts.success || _opts.success(xhr.responseText);
+				} else {
+					console.error(xhr.status);
+					_opts.error || _opts.error(xhr);
+				}
+			}
+		}
+		xhr.open(_opts.type, _opts.url, _opts.asyn);
+		if(_opts.contentType) {
+			xhr.setRequestHeader("Content-type", _opts.contentType);
+		}
+		xhr.send(_opts.data);
 	},
 	stopBubble: function(event, fn) { //阻止事件冒泡
 		var e = event || window.event;
