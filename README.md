@@ -1,5 +1,5 @@
 # myBlog-page
-
+> 原生JavaScript+html+css
 ## 主页
 
 ![](http://opok8iwaa.bkt.clouddn.com/image/github/myBlog/index-01.png)
